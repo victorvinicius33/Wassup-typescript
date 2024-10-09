@@ -12,14 +12,18 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "@types/knex": "^0.15.2",
     "@types/node": "^22.7.5",
+    "@types/pg": "^8.11.10",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.1",
     "knex": "^3.1.0",
     "pg": "^8.13.0"
