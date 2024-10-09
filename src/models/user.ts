@@ -4,3 +4,10 @@ export interface IUser {
   email: string
   password: string
 }
+
+export interface IContact {
+  id: number
+  name: string
+  email: string
+  user_id: number
+}
