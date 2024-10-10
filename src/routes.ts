@@ -4,8 +4,6 @@ import { PgCreateUserRepository } from './repositories/create-user/pg-create-use
 import { PgLoginRepository } from './repositories/login/pg-login'
 import { LoginController } from './controller/login/login'
 import { verifyLogin } from './middlewares/verifyLogin'
-import { PgSendMessageRepository } from './repositories/send-message/pg-send-message'
-import { SendMessageController } from './controller/send-message/send-message'
 
 const routes = Router()
 
@@ -37,20 +35,6 @@ routes.use(verifyLogin)
 
 routes.get('/user', async (req: Request, res: Response) => {
   res.status(200).json(req.body.user)
-})
-
-routes.post('/chat', async (req: Request, res: Response) => {
-  const pgSendMessageRepository = new PgSendMessageRepository()
-
-  const sendMessageController = new SendMessageController(
-    pgSendMessageRepository
-  )
-
-  const { body, statusCode } = await sendMessageController.handle({
-    body: req.body,
-  })
-
-  res.status(statusCode).json(body)
 })
 
 export default routes
