@@ -11,3 +11,9 @@ export interface IContact {
   email: string
   user_id: number
 }
+
+export interface ILoggedUserData {
+  user: Omit<IUser, 'password'>
+  contacts?: IContact[]
+  token: string
+}
