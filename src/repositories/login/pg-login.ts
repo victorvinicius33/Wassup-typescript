@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken'
 import { ILoggedUserData } from '../../models/user'
 import { knex } from '../../database/connection'
 import bcrypt from 'bcrypt'
-import { ILoginRepository, loginParams } from '../../controller/login/protocols'
+import { ILoginRepository, LoginParams } from '../../controller/login/protocols'
 
 export class PgLoginRepository implements ILoginRepository {
-  async login(params: loginParams): Promise<ILoggedUserData> {
+  async login(params: LoginParams): Promise<ILoggedUserData> {
     const { email, password } = params
 
     const user = await knex('users').where('email', email).first()

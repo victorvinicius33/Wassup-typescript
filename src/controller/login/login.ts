@@ -4,7 +4,7 @@ import {
   HttpResponse,
   IController,
 } from '../../controller/protocols'
-import { loginParams, ILoginRepository } from './protocols'
+import { LoginParams, ILoginRepository } from './protocols'
 import { ILoggedUserData } from '../../models/user'
 import validator from 'validator'
 
@@ -12,7 +12,7 @@ export class LoginController implements IController {
   constructor(private readonly loginRepository: ILoginRepository) {}
 
   async handle(
-    httpRequest: HttpRequest<loginParams>
+    httpRequest: HttpRequest<LoginParams>
   ): Promise<HttpResponse<ILoggedUserData | string>> {
     const { email, password } = httpRequest.body
 
