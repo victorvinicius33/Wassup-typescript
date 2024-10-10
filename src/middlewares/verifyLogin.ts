@@ -27,7 +27,7 @@ export const verifyLogin = async (
 
     const { id } = jwt.verify(token, process.env.JWT_SECRET ?? '') as JwtPayload
 
-    const user: IUser = await knex('users').where(id).first()
+    const user: IUser = await knex('users').where({ id }).first()
 
     if (!user) {
       return notFound('User not found.')
@@ -39,7 +39,7 @@ export const verifyLogin = async (
     const allUserContacts: IContact[] = await knex('contacts')
       .where({ user_id: loggedUser.id })
       .returning('*')
-    req.body.user = allUserContacts
+    req.body.user.contacts = allUserContacts
 
     next()
   } catch {
