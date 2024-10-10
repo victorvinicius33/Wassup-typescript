@@ -3,6 +3,7 @@ import { CreateUserController } from './controller/create-user/create-user'
 import { PgCreateUserRepository } from './repositories/create-user/pg-create-user'
 import { PgLoginRepository } from './repositories/login/pg-login'
 import { LoginController } from './controller/login/login'
+import { verifyLogin } from './middlewares/verifyLogin'
 
 const routes = Router()
 
@@ -29,5 +30,7 @@ routes.post('/login', async (req: Request, res: Response) => {
 
   res.status(statusCode).json(body)
 })
+
+routes.use(verifyLogin)
 
 export default routes

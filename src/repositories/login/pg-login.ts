@@ -8,8 +8,6 @@ export class PgLoginRepository implements ILoginRepository {
   async login(params: loginParams): Promise<ILoggedUserData> {
     const { email, password } = params
 
-    console.log('to aqui')
-
     const user = await knex('users').where('email', email).first()
     if (!user) {
       throw new Error('Incorrect E-mail or password.')

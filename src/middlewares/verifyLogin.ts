@@ -13,7 +13,7 @@ export const verifyLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<HttpResponse<string> | void> => {
+): Promise<HttpResponse<string> | any> => {
   const { authorization } = req.headers
 
   if (!authorization) {
