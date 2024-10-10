@@ -9,8 +9,14 @@ type JwtPayload = {
   id: number
 }
 
+export interface RequestCustom extends Request {
+  user: Omit<IUser, 'password'> & {
+    contacts?: IContact[]
+  }
+}
+
 export const verifyLogin = async (
-  req: Request,
+  req: RequestCustom,
   res: Response,
   next: NextFunction
 ): Promise<HttpResponse<string> | any> => {
@@ -34,7 +40,7 @@ export const verifyLogin = async (
     }
 
     const { password: _, ...loggedUser } = user
-    req.body.user = loggedUser
+    req.user = loggedUser
 
     const allUserContacts: IContact[] = await knex('contacts')
       .where({ user_id: loggedUser.id })
