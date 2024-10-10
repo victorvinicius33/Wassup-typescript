@@ -33,4 +33,8 @@ routes.post('/login', async (req: Request, res: Response) => {
 
 routes.use(verifyLogin)
 
+routes.get('/user', async (req: Request, res: Response) => {
+  res.status(200).json(req.body.user)
+})
+
 export default routes
