@@ -3,7 +3,6 @@ import { IUser } from '../../models/user'
 import { badRequest, created, serverError } from '../helpers'
 import { HttpRequest, HttpResponse, IController } from '../protocols'
 import { CreateUserParams, ICreateUserRepository } from './protocols'
-import { knex } from '../../database/connection'
 
 export class CreateUserController implements IController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
@@ -16,10 +15,7 @@ export class CreateUserController implements IController {
 
       for (const field of requiredFields) {
         if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
-          return {
-            statusCode: 400,
-            body: `Field ${field} is required.`,
-          }
+          return badRequest(`Field ${field} is required.`)
         }
       }
 
@@ -41,14 +37,6 @@ export class CreateUserController implements IController {
 
       if (password !== repeatPassword) {
         return badRequest('The password and repeatPassword must be the same.')
-      }
-
-      const email = httpRequest.body!.email
-
-      const emailAlreadyExists = await knex('users').where({ email }).first()
-
-      if (emailAlreadyExists) {
-        return badRequest('The E-mail already exists.')
       }
 
       const newUser = await this.createUserRepository.createUser(
